@@ -6,3 +6,4 @@ outbox/
 .env*
 report.html
 report.html
+*.png
