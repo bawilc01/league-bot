@@ -24,7 +24,7 @@ fake = Faker()
 age_groups = ["U8", "U10", "U12", "U14"]
 
 for age_group in age_groups:
-    for letter in ["A", "B"]:
+    for letter in ["A", "B", "C"]:
         name = f"{age_group} Team {letter}"
         cur.execute(
             "INSERT INTO teams (name, age_group, max_size) VALUES (%s, %s, %s)",
