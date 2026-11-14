@@ -1,6 +1,8 @@
 import os
 import psycopg2
 from dotenv import load_dotenv
+from logic import assign_players
+
 
 load_dotenv()
 conn = psycopg2.connect(os.environ["DATABASE_URL"])
@@ -42,6 +44,11 @@ for age_group in age_groups:
         if not placed:
             waitlist.append((player_name, age_group))
 
+assignments, overflow = assign_players(players, teams, counts)
+for player_id, team_id in assignments:
+    cur.execute("UPDATE players SET team_id = %s WHERE id = %s", (team_id, player_id))
+for player_id, name in overflow:
+    waitlist.append((name, age_group))
 conn.commit()
 
 print(f"Waitlist: {len(waitlist)} players")
